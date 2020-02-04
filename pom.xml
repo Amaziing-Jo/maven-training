@@ -11,6 +11,10 @@
 
     <modules>
         <module>modele</module>
+        <module>persistence</module>
+        <module>services</module>
+        <module>mainModule</module>
+        <module>webView</module>
     </modules>
 
     <name>mavenMultiModule</name>
@@ -23,14 +27,27 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+    <!-- Dependency management sert à gérer les dépendances globales du projet (indiquer seulement les groupId et les artifactId dans les POM enfant) -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.11</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>2.13.0</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.dawan.formation</groupId>
+                <artifactId>services</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <pluginManagement>
@@ -74,6 +91,15 @@
                 <plugin>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
                     <version>3.0.0</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.tomcat.maven</groupId>
+                    <artifactId>tomcat7-maven-plugin</artifactId>
+                    <version>2.2</version>
+                    <configuration>
+                        <port>9090</port>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
